@@ -4,67 +4,58 @@ import java.awt.event.*;
 
 public class RadioButtonDemo extends JFrame implements ActionListener {
     private JRadioButton birdButton, catButton, dogButton, rabbitButton, pigButton;
-    private JLabel imageLabel;
-    private ButtonGroup group;
+    private JLabel petImage;
 
     public RadioButtonDemo() {
         setTitle("RadioButtonDemo");
-        setSize(500, 400);
+        setSize(400, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
+
+        // Create radio buttons
         birdButton = new JRadioButton("Bird");
         catButton = new JRadioButton("Cat");
         dogButton = new JRadioButton("Dog");
         rabbitButton = new JRadioButton("Rabbit");
         pigButton = new JRadioButton("Pig");
-        
-        group = new ButtonGroup();
+
+        // Group them so only one can be selected
+        ButtonGroup group = new ButtonGroup();
         group.add(birdButton);
         group.add(catButton);
         group.add(dogButton);
         group.add(rabbitButton);
         group.add(pigButton);
 
+        // Add action listeners
         birdButton.addActionListener(this);
         catButton.addActionListener(this);
         dogButton.addActionListener(this);
         rabbitButton.addActionListener(this);
         pigButton.addActionListener(this);
 
-        
+        // Add radio buttons to frame
         add(birdButton);
         add(catButton);
         add(dogButton);
         add(rabbitButton);
         add(pigButton);
 
-    
-        imageLabel = new JLabel();
-        add(imageLabel);
+        // Image label
+        petImage = new JLabel();
+        add(petImage);
 
         setVisible(true);
     }
-    public void actionPerformed(ActionEvent e) {
-        String choice = e.getActionCommand();
-        JOptionPane.showMessageDialog(this, "You selected: " + choice);
 
-        switch (choice) {
-            case "Bird":
-                imageLabel.setIcon(new ImageIcon("images/bird.png"));
-                break;
-            case "Cat":
-                imageLabel.setIcon(new ImageIcon("images/cat.png"));
-                break;
-            case "Dog":
-                imageLabel.setIcon(new ImageIcon("images/dog.png"));
-                break;
-            case "Rabbit":
-                imageLabel.setIcon(new ImageIcon("images/rabbit.png"));
-                break;
-            case "Pig":
-                imageLabel.setIcon(new ImageIcon("images/pig.png"));
-                break;
-        }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String pet = e.getActionCommand();
+        JOptionPane.showMessageDialog(this, "You selected: " + pet);
+
+        // Load image from images folder
+        String imagePath = "images/" + pet.toLowerCase() + ".png";
+        petImage.setIcon(new ImageIcon(imagePath));
     }
 
     public static void main(String[] args) {
